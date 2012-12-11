@@ -16,7 +16,8 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
         }
-
+        bool Is_Shape_start = true;
+        Point Shape_start;
         
 
         private void button1_Click(object sender, EventArgs e)
@@ -39,8 +40,29 @@ namespace WindowsFormsApplication1
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            Shapes.Add(new Cross(e.Location));
+            if (rb_cross.Checked)
+            {
+                Shapes.Add(new Cross(e.Location));
+            }
+            else if (rb_line.Checked)
+            {
+                if (Is_Shape_start)
+                {
+                    Shape_start = e.Location;
+                    Is_Shape_start = !Is_Shape_start;
+                }
+                else
+                {
+                    Shapes.Add(new Line(Shape_start, e.Location));
+                    Is_Shape_start = !Is_Shape_start;
+                }
+            }
             pictureBox1.Refresh();
+        }
+
+        private void rb_cross_CheckedChanged(object sender, EventArgs e)
+        {
+            Is_Shape_start = true;
         }
     }
 }
