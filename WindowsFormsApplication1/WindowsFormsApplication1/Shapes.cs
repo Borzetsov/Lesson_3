@@ -11,6 +11,7 @@ namespace WindowsFormsApplication1
     {
         public abstract void Draw(Graphics g);
         public abstract void SaveTo(StreamWriter sw);
+        public abstract string ConfString { get; }
     }
     public class Cross : Shape
     {
@@ -38,6 +39,13 @@ namespace WindowsFormsApplication1
             string[] str = line.Split(' ');
             c.X = Convert.ToInt32(str[0]);
             c.Y = Convert.ToInt32(str[1]);
+        }
+        public override string ConfString
+        {
+            get
+            {
+                return "Cross " + Convert.ToString(c);
+            }
         }
     }
     public class Line : Shape
@@ -73,6 +81,13 @@ namespace WindowsFormsApplication1
             a.Y = Convert.ToInt32(str[1]);
             b.X = Convert.ToInt32(str[2]);
             b.Y = Convert.ToInt32(str[3]);
+        }
+        public override string ConfString
+        {
+            get
+            {
+                return "Line " + Convert.ToString(a) + " : " + Convert.ToString(b);
+            }
         }
     }
 }

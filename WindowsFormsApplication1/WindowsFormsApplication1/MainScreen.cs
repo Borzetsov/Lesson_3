@@ -20,7 +20,6 @@ namespace WindowsFormsApplication1
         bool Is_Shape_start = true;
         Point Shape_start;
         string curFile;
-        
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -44,7 +43,7 @@ namespace WindowsFormsApplication1
         {
             if (rb_cross.Checked)
             {
-                Shapes.Add(new Cross(e.Location));
+                AddShape(new Cross(e.Location));
             }
             else if (rb_line.Checked)
             {
@@ -55,7 +54,7 @@ namespace WindowsFormsApplication1
                 }
                 else
                 {
-                    Shapes.Add(new Line(Shape_start, e.Location));
+                    AddShape(new Line(Shape_start, e.Location));
                     Is_Shape_start = !Is_Shape_start;
                 }
             }
@@ -70,11 +69,13 @@ namespace WindowsFormsApplication1
         private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Shapes.Clear();
-            this.Refresh();
+            Shapes_list.Items.Clear();
+            pictureBox1.Refresh();
         }
         private void AddShape(Shape s)
         {
             Shapes.Add(s);
+            Shapes_list.Items.Add(s.ConfString);
         }
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {

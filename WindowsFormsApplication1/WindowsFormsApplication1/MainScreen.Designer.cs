@@ -64,6 +64,7 @@
             this.опрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.Shapes_list = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -113,7 +114,7 @@
             this.справкаToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(512, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(592, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -347,11 +348,20 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // Shapes_list
+            // 
+            this.Shapes_list.FormattingEnabled = true;
+            this.Shapes_list.Location = new System.Drawing.Point(368, 27);
+            this.Shapes_list.Name = "Shapes_list";
+            this.Shapes_list.Size = new System.Drawing.Size(212, 316);
+            this.Shapes_list.TabIndex = 5;
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(512, 423);
+            this.ClientSize = new System.Drawing.Size(592, 423);
+            this.Controls.Add(this.Shapes_list);
             this.Controls.Add(this.rb_line);
             this.Controls.Add(this.rb_cross);
             this.Controls.Add(this.pictureBox1);
@@ -403,6 +413,7 @@
         private System.Windows.Forms.ToolStripMenuItem опрограммеToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ListBox Shapes_list;
     }
 }
 
