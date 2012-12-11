@@ -11,26 +11,13 @@ namespace WindowsFormsApplication1
 {
     public partial class MainScreen : Form
     {
-        List<Cross> Shapes = new List<Cross>();
+        List<Shape> Shapes = new List<Shape>();
         public MainScreen()
         {
             InitializeComponent();
         }
 
-        public class Cross
-        {
-            Pen p = new Pen(Color.Red);
-            public Point c;
-            public Cross(Point _c)
-            {
-                c = _c;
-            }
-            public void Draw( Graphics g)
-            {
-                g.DrawLine(p, c.X - 3, c.Y - 3, c.X + 3, c.Y + 3);
-                g.DrawLine(p, c.X + 3, c.Y - 3, c.X - 3, c.Y + 3);
-            }
-        }
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -44,7 +31,7 @@ namespace WindowsFormsApplication1
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            foreach (Cross p in Shapes)
+            foreach (Shape p in Shapes)
             {
                 p.Draw(e.Graphics);
             }
