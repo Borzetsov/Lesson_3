@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
@@ -18,6 +19,7 @@ namespace WindowsFormsApplication1
         }
         bool Is_Shape_start = true;
         Point Shape_start;
+        string curFile;
         
 
         private void button1_Click(object sender, EventArgs e)
@@ -63,6 +65,63 @@ namespace WindowsFormsApplication1
         private void rb_cross_CheckedChanged(object sender, EventArgs e)
         {
             Is_Shape_start = true;
+        }
+
+        private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Shapes.Clear();
+            this.Refresh();
+        }
+        private void AddShape(Shape s)
+        {
+            Shapes.Add(s);
+        }
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                curFile = openFileDialog1.FileName;
+                Shapes.Clear();
+                StreamReader sr = new StreamReader(curFile);
+                while (!sr.EndOfStream)
+                {
+                    string type = sr.ReadLine();
+                    switch (type)
+                    {
+                        case "Cross":
+                            {
+                                AddShape(new Cross(sr));
+                                break;
+                            }
+                        case "Line":
+                            {
+                                AddShape(new Line(sr));
+                                break;
+                            }
+                    }
+                }
+                sr.Close();
+                pictureBox1.Refresh();
+            }
+        }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void сохранитькакToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                curFile = saveFileDialog1.FileName;
+                StreamWriter sw = new StreamWriter(curFile);
+                foreach (Shape p in this.Shapes)
+                {
+                    p.SaveTo(sw);
+                }
+                sw.Close();
+            }
         }
     }
 }
