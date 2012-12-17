@@ -15,11 +15,12 @@ namespace WindowsFormsApplication1
     }
     public class Cross : Shape
     {
-        Pen p = new Pen(Color.Red);
+        Pen p;
         private Point c;
-        public Cross(Point _c)
+        public Cross(Point _c, Pen _p)
         {
             c = _c;
+            p = _p;
         }
         public override void Draw(Graphics g)
         {
@@ -44,19 +45,20 @@ namespace WindowsFormsApplication1
         {
             get
             {
-                return "Cross " + Convert.ToString(c);
+                return "Cross " + Convert.ToString(c) + Convert.ToString(p);
             }
         }
     }
     public class Line : Shape
     {
-        Pen p = new Pen(Color.Red);
+        public Pen p;
         private Point a;
-        private Point b;
-        public Line(Point _a, Point _b)
+        public Point b;
+        public Line(Point _a, Point _b, Pen _p)
         {
             a = _a;
             b = _b;
+            p = _p;
         }
         public override void Draw(Graphics g)
         {

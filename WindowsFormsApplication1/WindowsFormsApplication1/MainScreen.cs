@@ -17,7 +17,10 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
         }
-        bool Is_Shape_start = true;
+        Pen RedPen = new Pen(Color.Red);
+        Pen GreenPen = new Pen(Color.Green);
+        Shape TempShape;
+        bool Draw_Temp_Line = false;
         Point Shape_start;
         string curFile;
 
@@ -28,7 +31,18 @@ namespace WindowsFormsApplication1
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            this.Text = Convert.ToString(e.Location);
+            if (rb_cross.Checked)
+            {
+                TempShape = new Cross(e.Location, GreenPen);
+            }
+            if (rb_line.Checked)
+            {
+                if (Draw_Temp_Line)
+                {
+                    (Shapes[Shapes.Count - 1] as Line).b = e.Location;
+                }
+            }
+            pictureBox1.Refresh();
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -43,27 +57,15 @@ namespace WindowsFormsApplication1
         {
             if (rb_cross.Checked)
             {
-                AddShape(new Cross(e.Location));
+                AddShape(new Cross(e.Location, RedPen));
             }
             else if (rb_line.Checked)
             {
-                if (Is_Shape_start)
-                {
-                    Shape_start = e.Location;
-                    Is_Shape_start = !Is_Shape_start;
-                }
-                else
-                {
-                    AddShape(new Line(Shape_start, e.Location));
-                    Is_Shape_start = !Is_Shape_start;
-                }
+                Shape_start = e.Location;
+                AddShape(new Line(Shape_start,Shape_start, GreenPen));
+                Draw_Temp_Line = true;
             }
             pictureBox1.Refresh();
-        }
-
-        private void rb_cross_CheckedChanged(object sender, EventArgs e)
-        {
-            Is_Shape_start = true;
         }
 
         private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -123,6 +125,22 @@ namespace WindowsFormsApplication1
                 }
                 sw.Close();
             }
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (Draw_Temp_Line)
+            {
+                    (Shapes[Shapes.Count - 1] as Line).p = RedPen;
+                    Draw_Temp_Line = false;
+                
+                pictureBox1.Refresh();
+            }
+        }
+
+        private void rb_cross_CheckedChanged(object sender, EventArgs e)
+        {
+            Draw_Temp_Line = false;
         }
     }
 }
