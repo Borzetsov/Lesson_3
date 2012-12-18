@@ -65,6 +65,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.Shapes_list = new System.Windows.Forms.ListBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -354,15 +355,26 @@
             this.Shapes_list.FormattingEnabled = true;
             this.Shapes_list.Location = new System.Drawing.Point(368, 27);
             this.Shapes_list.Name = "Shapes_list";
+            this.Shapes_list.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.Shapes_list.Size = new System.Drawing.Size(212, 316);
             this.Shapes_list.TabIndex = 5;
             this.Shapes_list.SelectedIndexChanged += new System.EventHandler(this.Shapes_list_SelectedIndexChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(505, 349);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Удалить";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(592, 423);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.Shapes_list);
             this.Controls.Add(this.rb_line);
             this.Controls.Add(this.rb_cross);
@@ -417,6 +429,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ListBox Shapes_list;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -33,10 +33,6 @@ namespace WindowsFormsApplication1
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (rb_cross.Checked)
-            {
-                TempShape = new Cross(e.Location);
-            }
             if (rb_line.Checked)
             {
                 if (!IsShapeStart)
@@ -57,12 +53,17 @@ namespace WindowsFormsApplication1
             {
                 p.Draw(e.Graphics, RedPen);
             }
+            foreach (int i in Shapes_list.SelectedIndices)
+            {
+                Shapes[i].Draw(e.Graphics, pSelect);
+            }
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             if (rb_cross.Checked)
             {
+                TempShape = new Cross(e.Location);
                 AddShape(TempShape);
             }
             else if (rb_line.Checked)
@@ -84,6 +85,7 @@ namespace WindowsFormsApplication1
         private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Shapes.Clear();
+            TempShape = null;
             Shapes_list.Items.Clear();
             pictureBox1.Refresh();
         }
@@ -142,9 +144,12 @@ namespace WindowsFormsApplication1
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
+            if ((!IsShapeStart) && (Shape_start != e.Location))
+            {
+                AddShape(TempShape);
+                pictureBox1.Refresh();
+            }
             IsShapeStart = true;
-            AddShape(TempShape);
-            pictureBox1.Refresh();
         }
 
         private void rb_cross_CheckedChanged(object sender, EventArgs e)
@@ -154,7 +159,8 @@ namespace WindowsFormsApplication1
 
         private void Shapes_list_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            button1.Enabled = true;
+            pictureBox1.Refresh();
         }
     }
 }
