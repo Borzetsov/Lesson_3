@@ -104,6 +104,7 @@
             this.rb_line.TabStop = true;
             this.rb_line.Text = "Линия";
             this.rb_line.UseVisualStyleBackColor = true;
+            this.rb_line.CheckedChanged += new System.EventHandler(this.rb_cross_CheckedChanged);
             // 
             // menuStrip1
             // 
@@ -355,6 +356,7 @@
             this.Shapes_list.Name = "Shapes_list";
             this.Shapes_list.Size = new System.Drawing.Size(212, 316);
             this.Shapes_list.TabIndex = 5;
+            this.Shapes_list.SelectedIndexChanged += new System.EventHandler(this.Shapes_list_SelectedIndexChanged);
             // 
             // MainScreen
             // 
@@ -366,6 +368,7 @@
             this.Controls.Add(this.rb_cross);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
+            this.DoubleBuffered = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainScreen";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

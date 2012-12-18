@@ -19,10 +19,12 @@ namespace WindowsFormsApplication1
         }
         Pen RedPen = new Pen(Color.Red);
         Pen GreenPen = new Pen(Color.Green);
+        Pen p;
         Shape TempShape;
-        bool Draw_Temp_Line = false;
+        Pen pSelect = new Pen(Color.Red,2);
         Point Shape_start;
         string curFile;
+        bool IsShapeStart = true;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -33,13 +35,13 @@ namespace WindowsFormsApplication1
         {
             if (rb_cross.Checked)
             {
-                TempShape = new Cross(e.Location, GreenPen);
+                TempShape = new Cross(e.Location);
             }
             if (rb_line.Checked)
             {
-                if (Draw_Temp_Line)
+                if (!IsShapeStart)
                 {
-                    (Shapes[Shapes.Count - 1] as Line).b = e.Location;
+                    TempShape = new Line(Shape_start, e.Location);
                 }
             }
             pictureBox1.Refresh();
@@ -47,9 +49,13 @@ namespace WindowsFormsApplication1
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
+            if (TempShape != null)
+            {
+                TempShape.Draw(e.Graphics, GreenPen);
+            }
             foreach (Shape p in Shapes)
             {
-                p.Draw(e.Graphics);
+                p.Draw(e.Graphics, RedPen);
             }
         }
 
@@ -57,13 +63,20 @@ namespace WindowsFormsApplication1
         {
             if (rb_cross.Checked)
             {
-                AddShape(new Cross(e.Location, RedPen));
+                AddShape(TempShape);
             }
             else if (rb_line.Checked)
             {
-                Shape_start = e.Location;
-                AddShape(new Line(Shape_start,Shape_start, GreenPen));
-                Draw_Temp_Line = true;
+                if (IsShapeStart)
+                {
+                    Shape_start = e.Location;
+                    IsShapeStart = false;
+                }
+                else
+                {
+                    IsShapeStart = true;
+                    AddShape(TempShape);
+                }
             }
             pictureBox1.Refresh();
         }
@@ -129,22 +142,22 @@ namespace WindowsFormsApplication1
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (Draw_Temp_Line)
-            {
-                    (Shapes[Shapes.Count - 1] as Line).p = RedPen;
-                    Draw_Temp_Line = false;
-                
-                pictureBox1.Refresh();
-            }
+            IsShapeStart = true;
+            AddShape(TempShape);
+            pictureBox1.Refresh();
         }
 
         private void rb_cross_CheckedChanged(object sender, EventArgs e)
         {
-            Draw_Temp_Line = false;
+            IsShapeStart = true;
+        }
+
+        private void Shapes_list_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }
 //to do: Выделение(подсвечивание)элемента в списке
-//       "тень"
 //       Окружность с нефикс. радиусом
 //       Удаление выделенного элемента из списка

@@ -9,20 +9,18 @@ namespace WindowsFormsApplication1
 {
     public abstract class Shape
     {
-        public abstract void Draw(Graphics g);
+        public abstract void Draw(Graphics g, Pen p);
         public abstract void SaveTo(StreamWriter sw);
         public abstract string ConfString { get; }
     }
     public class Cross : Shape
     {
-        Pen p;
         private Point c;
-        public Cross(Point _c, Pen _p)
+        public Cross(Point _c)
         {
             c = _c;
-            p = _p;
         }
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics g, Pen p)
         {
             g.DrawLine(p, c.X - 3, c.Y - 3, c.X + 3, c.Y + 3);
             g.DrawLine(p, c.X + 3, c.Y - 3, c.X - 3, c.Y + 3);
@@ -45,22 +43,20 @@ namespace WindowsFormsApplication1
         {
             get
             {
-                return "Cross " + Convert.ToString(c) + Convert.ToString(p);
+                return "Cross " + Convert.ToString(c);
             }
         }
     }
     public class Line : Shape
     {
-        public Pen p;
         private Point a;
         public Point b;
-        public Line(Point _a, Point _b, Pen _p)
+        public Line(Point _a, Point _b)
         {
             a = _a;
             b = _b;
-            p = _p;
         }
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics g, Pen p)
         {
             g.DrawLine(p, a, b);
         }
