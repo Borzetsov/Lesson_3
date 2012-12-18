@@ -162,6 +162,18 @@ namespace WindowsFormsApplication1
             button1.Enabled = true;
             pictureBox1.Refresh();
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            while (Shapes_list.SelectedIndices.Count > 0)
+            {
+                Shapes.RemoveAt(Shapes_list.SelectedIndices[0]);
+                Shapes_list.Items.RemoveAt(Shapes_list.SelectedIndices[0]);
+            }
+            button1.Enabled = false;
+            TempShape = null;
+            this.Refresh();
+        }
     }
 }
 //to do: Выделение(подсвечивание)элемента в списке
