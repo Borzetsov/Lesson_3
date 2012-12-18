@@ -66,6 +66,7 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.Shapes_list = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.rb_circle = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -86,7 +87,7 @@
             // rb_cross
             // 
             this.rb_cross.AutoSize = true;
-            this.rb_cross.Location = new System.Drawing.Point(398, 371);
+            this.rb_cross.Location = new System.Drawing.Point(398, 355);
             this.rb_cross.Name = "rb_cross";
             this.rb_cross.Size = new System.Drawing.Size(67, 17);
             this.rb_cross.TabIndex = 2;
@@ -98,7 +99,7 @@
             // rb_line
             // 
             this.rb_line.AutoSize = true;
-            this.rb_line.Location = new System.Drawing.Point(398, 394);
+            this.rb_line.Location = new System.Drawing.Point(398, 378);
             this.rb_line.Name = "rb_line";
             this.rb_line.Size = new System.Drawing.Size(57, 17);
             this.rb_line.TabIndex = 3;
@@ -370,11 +371,24 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // rb_circle
+            // 
+            this.rb_circle.AutoSize = true;
+            this.rb_circle.Location = new System.Drawing.Point(398, 401);
+            this.rb_circle.Name = "rb_circle";
+            this.rb_circle.Size = new System.Drawing.Size(87, 17);
+            this.rb_circle.TabIndex = 7;
+            this.rb_circle.TabStop = true;
+            this.rb_circle.Text = "Окружность";
+            this.rb_circle.UseVisualStyleBackColor = true;
+            this.rb_circle.CheckedChanged += new System.EventHandler(this.rb_cross_CheckedChanged);
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(592, 423);
+            this.Controls.Add(this.rb_circle);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Shapes_list);
             this.Controls.Add(this.rb_line);
@@ -384,6 +398,7 @@
             this.DoubleBuffered = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainScreen";
+            this.Text = "Графический редактор";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -431,6 +446,7 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ListBox Shapes_list;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RadioButton rb_circle;
     }
 }
 

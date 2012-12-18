@@ -88,4 +88,43 @@ namespace WindowsFormsApplication1
             }
         }
     }
+    public class Circle : Shape
+    {
+        Point a, b;
+        int r;
+        public Circle(Point _a, Point _b)
+        {
+            a = _a;
+            b = _b;
+            r = Convert.ToInt32(Math.Sqrt(Math.Pow(a.X - b.X,2) + Math.Pow(a.Y - b.Y,2)));
+        }
+        public override void Draw(Graphics g, Pen p)
+        {
+            g.DrawEllipse(p, a.X - r, a.Y - r, 2 * r, 2 * r);
+        }
+        public override void SaveTo(StreamWriter sw)
+        {
+            sw.WriteLine("Circle");
+            sw.Write(Convert.ToString(a.X));
+            sw.Write(' ');
+            sw.Write(Convert.ToString(a.Y));
+            sw.Write(' ');
+            sw.WriteLine(Convert.ToString(r));
+        }
+        public Circle(StreamReader _sr)
+        {
+            string line = _sr.ReadLine();
+            string[] str = line.Split(' ');
+            a.X = Convert.ToInt32(str[0]);
+            a.Y = Convert.ToInt32(str[1]);
+            r = Convert.ToInt32(str[2]);
+        }
+        public override string ConfString
+        {
+            get
+            {
+                return "Circle " + Convert.ToString(a) + " : " + Convert.ToString(r);
+            }
+        }
+    }
 }

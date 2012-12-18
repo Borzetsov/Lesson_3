@@ -40,6 +40,20 @@ namespace WindowsFormsApplication1
                     TempShape = new Line(Shape_start, e.Location);
                 }
             }
+            else if (rb_line.Checked)
+            {
+                if (!IsShapeStart)
+                {
+                    TempShape = new Line(Shape_start, e.Location);
+                }
+            }
+            else if (rb_circle.Checked)
+            {
+                if (!IsShapeStart)
+                {
+                    TempShape = new Circle(Shape_start, e.Location);
+                }
+            }
             pictureBox1.Refresh();
         }
 
@@ -67,6 +81,19 @@ namespace WindowsFormsApplication1
                 AddShape(TempShape);
             }
             else if (rb_line.Checked)
+            {
+                if (IsShapeStart)
+                {
+                    Shape_start = e.Location;
+                    IsShapeStart = false;
+                }
+                else
+                {
+                    IsShapeStart = true;
+                    AddShape(TempShape);
+                }
+            }
+            else if (rb_circle.Checked)
             {
                 if (IsShapeStart)
                 {
@@ -114,6 +141,11 @@ namespace WindowsFormsApplication1
                         case "Line":
                             {
                                 AddShape(new Line(sr));
+                                break;
+                            }
+                        case "Circle":
+                            {
+                                AddShape(new Circle(sr));
                                 break;
                             }
                     }
