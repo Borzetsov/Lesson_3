@@ -19,7 +19,6 @@ namespace WindowsFormsApplication1
         }
         Pen RedPen = new Pen(Color.Red);
         Pen GreenPen = new Pen(Color.Green);
-        Pen p;
         Shape TempShape;
         Pen pSelect = new Pen(Color.Red,2);
         Point Shape_start;
@@ -34,13 +33,6 @@ namespace WindowsFormsApplication1
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             if (rb_line.Checked)
-            {
-                if (!IsShapeStart)
-                {
-                    TempShape = new Line(Shape_start, e.Location);
-                }
-            }
-            else if (rb_line.Checked)
             {
                 if (!IsShapeStart)
                 {
