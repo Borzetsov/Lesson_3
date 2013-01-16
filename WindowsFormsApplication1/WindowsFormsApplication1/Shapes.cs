@@ -12,6 +12,8 @@ namespace WindowsFormsApplication1
         public abstract void Draw(Graphics g, Pen p);
         public abstract void SaveTo(StreamWriter sw);
         public abstract string ConfString { get; }
+        public abstract int Rad { get; }
+        public abstract bool MayDraw { get; }
     }
     public class Cross : Shape
     {
@@ -45,6 +47,14 @@ namespace WindowsFormsApplication1
             {
                 return "Cross " + Convert.ToString(c);
             }
+        }
+        public override int Rad
+        {
+            get { return 0; }
+        }
+        public override bool MayDraw
+        {
+            get { return true; }
         }
     }
     public class Line : Shape
@@ -87,29 +97,51 @@ namespace WindowsFormsApplication1
                 return "Line " + Convert.ToString(a) + " : " + Convert.ToString(b);
             }
         }
+        public override bool MayDraw
+        {
+            get
+            {
+                if (this.Rad != 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        public override int Rad
+        {
+            get
+            {
+                return Convert.ToInt32(Math.Sqrt(Math.Pow(a.X - b.X, 2)
+                    + Math.Pow(a.Y - b.Y, 2)));
+            }
+        }
     }
     public class Circle : Shape
     {
         Point a, b;
-        int r;
         public Circle(Point _a, Point _b)
         {
             a = _a;
             b = _b;
-            r = Convert.ToInt32(Math.Sqrt(Math.Pow(a.X - b.X,2) + Math.Pow(a.Y - b.Y,2)));
         }
         public override void Draw(Graphics g, Pen p)
         {
-            g.DrawEllipse(p, a.X - r, a.Y - r, 2 * r, 2 * r);
+            g.DrawEllipse(p, a.X - this.Rad, a.Y - this.Rad, 2 * this.Rad, 2 * this.Rad);
         }
         public override void SaveTo(StreamWriter sw)
         {
             sw.WriteLine("Circle");
             sw.Write(Convert.ToString(a.X));
             sw.Write(' ');
-            sw.Write(Convert.ToString(a.Y));
+            sw.Write(Convert.ToString(a.Y)); ;
             sw.Write(' ');
-            sw.WriteLine(Convert.ToString(r));
+            sw.Write(Convert.ToString(b.X));
+            sw.Write(' ');
+            sw.WriteLine(Convert.ToString(b.Y));
         }
         public Circle(StreamReader _sr)
         {
@@ -117,13 +149,36 @@ namespace WindowsFormsApplication1
             string[] str = line.Split(' ');
             a.X = Convert.ToInt32(str[0]);
             a.Y = Convert.ToInt32(str[1]);
-            r = Convert.ToInt32(str[2]);
+            b.X = Convert.ToInt32(str[2]);
+            b.Y = Convert.ToInt32(str[3]);
+        }
+        public override int Rad
+        {
+            get
+            {
+                return Convert.ToInt32(Math.Sqrt(Math.Pow(a.X - b.X, 2)
+                    + Math.Pow(a.Y - b.Y, 2)));
+            }
         }
         public override string ConfString
         {
             get
             {
-                return "Circle " + Convert.ToString(a) + " : " + Convert.ToString(r);
+                return "Circle " + Convert.ToString(a) + " : " + Convert.ToString(this.Rad);
+            }
+        }
+        public override bool MayDraw
+        {
+            get
+            {
+                if (this.Rad != 0) 
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
     }

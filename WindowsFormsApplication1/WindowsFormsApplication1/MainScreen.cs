@@ -24,31 +24,10 @@ namespace WindowsFormsApplication1
         Point Shape_start;
         string curFile;
         bool IsShapeStart = true;
-
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
-        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (rb_line.Checked)
-            {
-                if (!IsShapeStart)
-                {
-                    TempShape = new Line(Shape_start, e.Location);
-                }
-            }
-            else if (rb_circle.Checked)
-            {
-                if (!IsShapeStart)
-                {
-                    TempShape = new Circle(Shape_start, e.Location);
-                }
-            }
-            pictureBox1.Refresh();
-        }
-
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             if (TempShape != null)
@@ -64,43 +43,51 @@ namespace WindowsFormsApplication1
                 Shapes[i].Draw(e.Graphics, pSelect);
             }
         }
-
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             if (rb_cross.Checked)
             {
                 TempShape = new Cross(e.Location);
-                AddShape(TempShape);
+            pictureBox1.Refresh();
             }
-            else if (rb_line.Checked)
+            else
             {
-                if (IsShapeStart)
+                Shape_start = e.Location;
+                IsShapeStart = false;
+            }
+            pictureBox1.Refresh();
+        }
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (TempShape != null) 
+            {
+                if (TempShape.MayDraw)
                 {
-                    Shape_start = e.Location;
-                    IsShapeStart = false;
-                }
-                else
-                {
-                    IsShapeStart = true;
                     AddShape(TempShape);
+                }
+                TempShape = null;                
+                pictureBox1.Refresh();
+            }
+            IsShapeStart = true;
+        }
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (rb_line.Checked)
+            {
+                if (IsShapeStart == false) 
+                {
+                    TempShape = new Line(Shape_start, e.Location);
                 }
             }
             else if (rb_circle.Checked)
             {
-                if (IsShapeStart)
+                if (IsShapeStart == false)
                 {
-                    Shape_start = e.Location;
-                    IsShapeStart = false;
-                }
-                else
-                {
-                    IsShapeStart = true;
-                    AddShape(TempShape);
+                    TempShape = new Circle(Shape_start, e.Location);
                 }
             }
             pictureBox1.Refresh();
         }
-
         private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Shapes.Clear();
@@ -146,12 +133,10 @@ namespace WindowsFormsApplication1
                 pictureBox1.Refresh();
             }
         }
-
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
         private void сохранитькакToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
@@ -165,17 +150,6 @@ namespace WindowsFormsApplication1
                 sw.Close();
             }
         }
-
-        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
-        {
-            if ((!IsShapeStart) && (Shape_start != e.Location))
-            {
-                AddShape(TempShape);
-                pictureBox1.Refresh();
-            }
-            IsShapeStart = true;
-        }
-
         private void rb_cross_CheckedChanged(object sender, EventArgs e)
         {
             IsShapeStart = true;
@@ -186,7 +160,6 @@ namespace WindowsFormsApplication1
             button1.Enabled = true;
             pictureBox1.Refresh();
         }
-
         private void button1_Click_1(object sender, EventArgs e)
         {
             while (Shapes_list.SelectedIndices.Count > 0)
@@ -200,6 +173,3 @@ namespace WindowsFormsApplication1
         }
     }
 }
-//to do: Выделение(подсвечивание)элемента в списке
-//       Окружность с нефикс. радиусом
-//       Удаление выделенного элемента из списка
