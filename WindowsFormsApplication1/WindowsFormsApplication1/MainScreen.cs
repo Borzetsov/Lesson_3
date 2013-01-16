@@ -48,43 +48,39 @@ namespace WindowsFormsApplication1
             if (rb_cross.Checked)
             {
                 TempShape = new Cross(e.Location);
-            pictureBox1.Refresh();
             }
-            else
+            else if (rb_circle.Checked)
             {
                 Shape_start = e.Location;
-                IsShapeStart = false;
+                TempShape = new Circle(Shape_start, Shape_start);
             }
+            else if (rb_line.Checked)
+            {
+                Shape_start = e.Location;
+                TempShape = new Line(Shape_start, Shape_start);
+            }
+            IsShapeStart = false;
             pictureBox1.Refresh();
         }
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (TempShape != null) 
+            if (TempShape.MayDraw)
             {
-                if (TempShape.MayDraw)
-                {
-                    AddShape(TempShape);
-                }
-                TempShape = null;                
-                pictureBox1.Refresh();
+                AddShape(TempShape);
             }
+            TempShape = null;                
+            pictureBox1.Refresh();
             IsShapeStart = true;
         }
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (rb_line.Checked)
+            if ((rb_line.Checked) && (IsShapeStart == false))
             {
-                if (IsShapeStart == false) 
-                {
-                    TempShape = new Line(Shape_start, e.Location);
-                }
+                TempShape = new Line(Shape_start, e.Location);
             }
-            else if (rb_circle.Checked)
+            else if ((rb_circle.Checked) && (IsShapeStart == false))
             {
-                if (IsShapeStart == false)
-                {
-                    TempShape = new Circle(Shape_start, e.Location);
-                }
+                TempShape = new Circle(Shape_start, e.Location);
             }
             pictureBox1.Refresh();
         }

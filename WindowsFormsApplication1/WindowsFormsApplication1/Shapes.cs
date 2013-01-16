@@ -12,7 +12,6 @@ namespace WindowsFormsApplication1
         public abstract void Draw(Graphics g, Pen p);
         public abstract void SaveTo(StreamWriter sw);
         public abstract string ConfString { get; }
-        public abstract int Rad { get; }
         public abstract bool MayDraw { get; }
     }
     public class Cross : Shape
@@ -47,10 +46,6 @@ namespace WindowsFormsApplication1
             {
                 return "Cross " + Convert.ToString(c);
             }
-        }
-        public override int Rad
-        {
-            get { return 0; }
         }
         public override bool MayDraw
         {
@@ -101,22 +96,8 @@ namespace WindowsFormsApplication1
         {
             get
             {
-                if (this.Rad != 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-        public override int Rad
-        {
-            get
-            {
-                return Convert.ToInt32(Math.Sqrt(Math.Pow(a.X - b.X, 2)
-                    + Math.Pow(a.Y - b.Y, 2)));
+                return (Convert.ToInt32(Math.Sqrt(Math.Pow(a.X - b.X, 2)
+                   + Math.Pow(a.Y - b.Y, 2))) > 0);
             }
         }
     }
@@ -152,7 +133,7 @@ namespace WindowsFormsApplication1
             b.X = Convert.ToInt32(str[2]);
             b.Y = Convert.ToInt32(str[3]);
         }
-        public override int Rad
+        public int Rad
         {
             get
             {
@@ -171,14 +152,7 @@ namespace WindowsFormsApplication1
         {
             get
             {
-                if (this.Rad != 0) 
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return (Rad > 0);
             }
         }
     }
